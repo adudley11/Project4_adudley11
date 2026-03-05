@@ -1,4 +1,4 @@
-from panda3d.core import PandaNode, Loader, NodePath, CollisionNode, CollisionSphere, CollisionInvSphere, CollisoinCapsule, Vec3
+from panda3d.core import PandaNode, Loader, NodePath, CollisionNode, CollisionSphere, CollisionInvSphere, CollisionCapsule, Vec3
 
 class PlacedObject(PandaNode):
     def __init__(self, loader: Loader, modelPath: str, parentNode: NodePath, nodeName: str):
