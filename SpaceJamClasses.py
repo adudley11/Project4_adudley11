@@ -11,6 +11,7 @@ class Universe(InverseSphereCollideObject):
         
         self.modelNode.setName(nodeName)
         tex = loader.loadTexture(texPath)
+        
         self.modelNode.setTexture(tex, 1)
         
 class Station(CapsuleCollidableObject):
@@ -23,7 +24,7 @@ class Station(CapsuleCollidableObject):
         tex = loader.loadTexture(texPath)
         self.modelNode.setTexture(tex, 1)
                 
-class Ship(ShowBase):
+class Ship(SphereCollideObject):
     def __init__(self, loader: Loader, modelPath: str, parentNode: NodePath, nodeName: str, texPath: str, posVec: Vec3, scaleVec: float):
         self.taskManager = taskMgr
         self.render = parentNode  

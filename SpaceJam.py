@@ -12,14 +12,14 @@ class MyApp(ShowBase):
         self.SetupScene()
         self.SetCamera()
         
+        fullCycle = 60
+                
         self.cTrav = CollisionTraverser()
         self.cTrav.traverse(self.render)
         self.pusher = CollisionHandlerPusher()
         self.pusher.addCollider(self.Ship.collisionNode, self.Ship.modelNode)
         self.cTrav.addCollider(self.Ship.collisionNode, self.pusher)
         self.cTrav.showCollisions(self.render)
-        
-        fullCycle = 60
         
         for j in range(fullCycle):
 
@@ -56,7 +56,7 @@ class MyApp(ShowBase):
         # Space Station
         self.Station = spaceJamClasses.Station(self.loader,'./Assets/SpaceStation/spaceStation.x', self.render, "Space Station", "./Assets/SpaceStation/SpaceStation1_Dif2.png", (50, 3000, 575), 10)
         # Space Ship
-        self.Ship = spaceJamClasses.Ship(self.loader, self.accept, self.rootAssetFolder + './Assets/Spaceships/Dumbledore.egg', self.render, "Ship", "./Assets/Spaceships/spacejet_C.png", (0, 500, -30), 10)        
+        self.Ship = spaceJamClasses.Ship(self.loader, './Assets/Spaceships/Dumbledore.x', self.render, "Ship", "./Assets/Spaceships/spacejet_C.png", (0, 500, -30), 10)        
         # Planets
         self.Planet1 = spaceJamClasses.Planet(self.loader, './Assets/Planets/protoPlanet.x', self.render, "Planet1", "./Assets/Planets/Planet-1.png", (-1500, 4300, 70), 350)
         self.Planet2 = spaceJamClasses.Planet(self.loader,'./Assets/Planets/protoPlanet.x', self.render, "Planet2", "./Assets/Planets/Planet-2.png", (-270, 1000, -300), 72)
