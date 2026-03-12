@@ -21,6 +21,7 @@ class MyApp(ShowBase):
         self.cTrav.addCollider(self.Ship.collisionNode, self.pusher)
         self.cTrav.showCollisions(self.render)
         
+        
         for j in range(fullCycle):
 
             spaceJamClasses.Drone.droneCount += 1
@@ -75,13 +76,17 @@ class MyApp(ShowBase):
         unitVec.normalize()
         position = unitVec * radius * 250 + centeralObject.modelNode.getPos()
         spaceJamClasses.Drone(self.loader,"./Assets/Drone Defender/DroneDefender.obj", self.render, droneName, "./Assets/Drone Defender/octotoad1_auv.png", position, 5)
-    
+        self.pusher.addCollider(spaceJamClasses.Drone.collisionNode, spaceJamClasses.Drone.modelNode)
+        self.cTrav.addCollider(spaceJamClasses.Drone.collisionNode, spaceJamClasses.Drone.modelNode)
+        
     def DrawCloudDefense(self, centeralObject, droneName):
         unitVec = defensePaths.Cloud()
         unitVec.normalize()
         position = unitVec * 500 + centeralObject.modelNode.getPos()
         spaceJamClasses.Drone(self.loader, "./Assets/Drone Defender/DroneDefender.obj", self.render, droneName, "./Assets/Drone Defender/octotoad1_auv.png", position, 10)
-    
+        self.pusher.addCollider(spaceJamClasses.Drone.collisionNode, spaceJamClasses.Drone.modelNode)
+        self.cTrav.addCollider(spaceJamClasses.Drone.collisionNode, spaceJamClasses.Drone.modelNode)
+        
     def DrawCircleDefense(self, centeralObject, droneName, step, numPoints, radius, axis):
         if axis == "X":
             unitVec = defensePaths.CircleX(step, numPoints)
@@ -95,6 +100,8 @@ class MyApp(ShowBase):
         unitVec.normalize()
         position = unitVec * radius * 250 + centeralObject.modelNode.getPos()
         spaceJamClasses.Drone(self.loader, "./Assets/Drone Defender/DroneDefender.obj", self.render, droneName, "./Assets/Drone Defender/octotoad1_auv.png", position, 5)   
+        self.pusher.addCollider(spaceJamClasses.Drone.collisionNode, spaceJamClasses.Drone.modelNode)
+        self.cTrav.addCollider(spaceJamClasses.Drone.collisionNode, spaceJamClasses.Drone.modelNode)
     
     # Prepare message if server wants to quit 
     def quit(self):
