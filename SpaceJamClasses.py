@@ -24,13 +24,12 @@ class Station(CapsuleCollidableObject):
         tex = loader.loadTexture(texPath)
         self.modelNode.setTexture(tex, 1)
                 
-class Ship(SphereCollideObject):
+class Ship(SphereCollideObject, ShowBase):
     def __init__(self, loader: Loader, modelPath: str, parentNode: NodePath, nodeName: str, texPath: str, posVec: Vec3, scaleVec: float):
-        self.taskManager = taskMgr
+        super().__init__(loader, modelPath, parentNode, nodeName, Vec3(0,0,0), 2)
+        self.taskManager = taskMgr # type: ignore
         self.render = parentNode  
         self.SetKeyBindings()      
-        self.modelNode = loader.loadModel(modelPath)
-        self.modelNode.reparentTo(parentNode)
         self.modelNode.setPos(posVec)
         self.modelNode.setScale(scaleVec)
         
@@ -78,7 +77,7 @@ class Ship(SphereCollideObject):
             self.taskManager.remove('a')
     
     def ApplyLeftTurn(self, task):
-        rate = .5
+        rate = 1
         self.modelNode.setH(self.modelNode.getH() + rate)
         return Task.cont
            
@@ -90,7 +89,7 @@ class Ship(SphereCollideObject):
             self.taskManager.remove('d')
     
     def ApplyRightTurn(self, task):
-        rate = .5
+        rate = 1
         self.modelNode.setH(self.modelNode.getH() - rate)
         return Task.cont
     
@@ -102,7 +101,7 @@ class Ship(SphereCollideObject):
             self.taskManager.remove('w')
     
     def ApplyUpTurn(self, task):
-        rate = .5
+        rate = 1
         self.modelNode.setP(self.modelNode.getP() + rate)
         return Task.cont
 
@@ -114,7 +113,7 @@ class Ship(SphereCollideObject):
             self.taskManager.remove('s')
     
     def ApplyDownTurn(self, task):
-        rate = .5
+        rate = 1
         self.modelNode.setP(self.modelNode.getP() - rate)
         return Task.cont
     
@@ -126,7 +125,7 @@ class Ship(SphereCollideObject):
             self.taskManager.remove('q')
     
     def ApplyRollLeft(self, task):
-        rate = .5
+        rate = 1
         self.modelNode.setR(self.modelNode.getR() + rate)
         return Task.cont
     
@@ -138,15 +137,14 @@ class Ship(SphereCollideObject):
             self.taskManager.remove('e')
     
     def ApplyRollRight(self, task):
-        rate = .5
+        rate = 1
         self.modelNode.setR(self.modelNode.getR() - rate)
         return Task.cont
     
     
-class Planet(ShowBase):
+class Planet(SphereCollideObject, ShowBase):
     def __init__(self, loader: Loader, modelPath: str, parentNode: NodePath, nodeName: str, texPath: str, posVec: Vec3, scaleVec: float):
-        self.modelNode = loader.loadModel(modelPath)
-        self.modelNode.reparentTo(parentNode)
+        super().__init__(loader, modelPath, parentNode, nodeName, Vec3(0,0,0), 1.5)
         self.modelNode.setPos(posVec)
         self.modelNode.setScale(scaleVec)
         
@@ -154,12 +152,11 @@ class Planet(ShowBase):
         tex = loader.loadTexture(texPath)
         self.modelNode.setTexture(tex, 1)
         
-class Drone(ShowBase):
+class Drone(SphereCollideObject, ShowBase):
     # Number of drones spawned
     droneCount = 0
     def __init__(self, loader: Loader, modelPath: str, parentNode: NodePath, nodeName: str, texPath: str, posVec: Vec3, scaleVec: float):
-        self.modelNode = loader.loadModel(modelPath)
-        self.modelNode.reparentTo(parentNode)
+        super().__init__(loader, modelPath, parentNode, nodeName, Vec3(0,0,0), 3)
         self.modelNode.setPos(posVec)
         self.modelNode.setScale(scaleVec)
 

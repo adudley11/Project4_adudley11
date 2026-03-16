@@ -15,12 +15,13 @@ class MyApp(ShowBase):
         fullCycle = 60
                 
         self.cTrav = CollisionTraverser()
-        self.cTrav.traverse(self.render)
         self.pusher = CollisionHandlerPusher()
-        self.pusher.addCollider(self.Ship.collisionNode, self.Ship.modelNode)
-        self.cTrav.addCollider(self.Ship.collisionNode, self.pusher)
-        self.cTrav.showCollisions(self.render)
         
+        self.cTrav.addCollider(self.Ship.collisionNode, self.pusher)
+        self.pusher.addCollider(self.Ship.collisionNode, self.Ship.modelNode)
+        
+        self.cTrav.showCollisions(self.render)
+        self.cTrav.traverse(self.render)
         
         for j in range(fullCycle):
 
@@ -47,7 +48,6 @@ class MyApp(ShowBase):
             spaceJamClasses.Drone.droneCount += 1
             nickName = "Drone6" + str(spaceJamClasses.Drone.droneCount)
             self.DrawCircleDefense(self.Planet6, nickName, j, fullCycle, 2, "Z")
-
         
         self.accept('escape', self.quit)
 
@@ -67,25 +67,21 @@ class MyApp(ShowBase):
         self.Planet6 = spaceJamClasses.Planet(self.loader,'./Assets/Planets/protoPlanet.x', self.render, "Planet6", "./Assets/Planets/Planet-6.png", (-1116, 5000, 1500), 240)
     
     def SetCamera(self):    
-        self.disableMouse()
+        "self.disableMouse()"
         self.camera.reparentTo(self.Ship.modelNode)
-        self.camera.setFluidPos(0, 1, 0)
+        self.camera.setFluidPos(0, 0, 0)
         
     def DrawBaseballSeams(self, centeralObject, droneName, step, numSeams, radius = 1):
         unitVec = defensePaths.BaseballSeams(step, numSeams, B = 0.4)
         unitVec.normalize()
         position = unitVec * radius * 250 + centeralObject.modelNode.getPos()
         spaceJamClasses.Drone(self.loader,"./Assets/Drone Defender/DroneDefender.obj", self.render, droneName, "./Assets/Drone Defender/octotoad1_auv.png", position, 5)
-        self.pusher.addCollider(spaceJamClasses.Drone.collisionNode, spaceJamClasses.Drone.modelNode)
-        self.cTrav.addCollider(spaceJamClasses.Drone.collisionNode, spaceJamClasses.Drone.modelNode)
         
     def DrawCloudDefense(self, centeralObject, droneName):
         unitVec = defensePaths.Cloud()
         unitVec.normalize()
         position = unitVec * 500 + centeralObject.modelNode.getPos()
         spaceJamClasses.Drone(self.loader, "./Assets/Drone Defender/DroneDefender.obj", self.render, droneName, "./Assets/Drone Defender/octotoad1_auv.png", position, 10)
-        self.pusher.addCollider(spaceJamClasses.Drone.collisionNode, spaceJamClasses.Drone.modelNode)
-        self.cTrav.addCollider(spaceJamClasses.Drone.collisionNode, spaceJamClasses.Drone.modelNode)
         
     def DrawCircleDefense(self, centeralObject, droneName, step, numPoints, radius, axis):
         if axis == "X":
@@ -100,8 +96,6 @@ class MyApp(ShowBase):
         unitVec.normalize()
         position = unitVec * radius * 250 + centeralObject.modelNode.getPos()
         spaceJamClasses.Drone(self.loader, "./Assets/Drone Defender/DroneDefender.obj", self.render, droneName, "./Assets/Drone Defender/octotoad1_auv.png", position, 5)   
-        self.pusher.addCollider(spaceJamClasses.Drone.collisionNode, spaceJamClasses.Drone.modelNode)
-        self.cTrav.addCollider(spaceJamClasses.Drone.collisionNode, spaceJamClasses.Drone.modelNode)
     
     # Prepare message if server wants to quit 
     def quit(self):

@@ -6,7 +6,7 @@ from direct.task import Task
 
 class Spaceship(SphereCollideObject):
     def __init__(self, loader: Loader, taskmgr: TaskManager, accept: Callable[[str, Callable], None], modelPath: str, parentNode: NodePath, nodeName: str, texPath: str, posVec: Vec3, scaleVec: float):
-        self.taskManager = taskMgr
+        self.taskManager = taskMgr # type: ignore
         self.render = parentNode  
         self.SetKeyBindings()      
         self.modelNode = loader.loadModel(modelPath)
